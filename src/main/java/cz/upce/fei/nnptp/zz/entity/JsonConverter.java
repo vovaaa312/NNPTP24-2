@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Roman
  */
-public class JSON {
+public class JsonConverter {
     
     
     public String toJson(List<Password> passwords)  {

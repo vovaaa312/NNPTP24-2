@@ -1,7 +1,7 @@
 package cz.upce.fei.nnptp.zz.controller;
 
 import cz.upce.fei.nnptp.zz.entity.CryptoFile;
-import cz.upce.fei.nnptp.zz.entity.JSON;
+import cz.upce.fei.nnptp.zz.entity.JsonConverter;
 import cz.upce.fei.nnptp.zz.entity.Password;
 import java.io.File;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class main {
         pwds.add(new Password(0, "sdfghjkl"));
         pwds.add(new Password(1, "ASDSAFafasdasdasdas"));
         pwds.add(new Password(2, "aaa-aaaa-"));
-        String contents = new JSON().toJson(pwds);
+        String contents = new JsonConverter().toJson(pwds);
         
         CryptoFile.writeFile(new File("test.txt"), "password",  contents);
         
