@@ -44,12 +44,12 @@ public class Password {
         return parameters;
     }
 
-    boolean hasParameter(String TITLE) {
-        return parameters.containsKey(TITLE);
+    boolean hasParameter(String title) {
+        return parameters.containsKey(title);
     }
     
-    public Parameter getParameter(String t) {
-        return parameters.get(t);
+    public Parameter getParameter(String title) {
+        return parameters.get(title);
     }
     
     
