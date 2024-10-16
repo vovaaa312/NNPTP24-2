@@ -61,7 +61,7 @@ public class CryptoFile {
         return null;
     }
     
-    public static void  writeFile(File file, String password, String cnt) {
+    public static void writeFile(File file, String password, String cnt) {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
