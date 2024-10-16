@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 public class Parameter {
     
     public static class StandardizedParameters {
-        public static final String  TITLE = "title" ;
-        public static final String  EXPIRATION_DATETIME  = "expiration-datetime" ;
-        public  static  final String  WEBSITE = "website" ;
-        public static final String  DESCRIPTION = "description" ;
+        public static final String TITLE = "title";
+        public static final String EXPIRATION_DATETIME  = "expiration-datetime";
+        public static final String WEBSITE = "website";
+        public static final String DESCRIPTION = "description";
         
     }
 

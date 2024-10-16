@@ -14,14 +14,14 @@ class JSONTest {
 
     @Test
     public void testToJsonEmptyPasswordList() {
-        JSON json = new JSON();
+        JsonConverter json = new JsonConverter();
         List<Password> passwords = new ArrayList<>();
         String result = json.toJson(passwords);
         assertEquals("[]", result, "Expected empty JSON array for empty password list.");
     }
     @Test
     public void testToJsonSinglePasswordNoParameters() {
-        JSON json = new JSON();
+        JsonConverter json = new JsonConverter();
         List<Password> passwords = new ArrayList<>();
         passwords.add(new Password(1, "password123"));
         String result = json.toJson(passwords);
@@ -29,7 +29,7 @@ class JSONTest {
     }
     @Test
     public void testToJsonMultiplePasswordsWithParameters() {
-        JSON json = new JSON();
+        JsonConverter json = new JsonConverter();
         HashMap<String, Parameter> parameters1 = new HashMap<>();
         parameters1.put(Parameter.StandardizedParameters.TITLE, new Parameter.TextParameter("Title"));
         LinkedHashMap<String, Parameter> parameters2 = new LinkedHashMap<>();

@@ -11,8 +11,9 @@ import java.util.HashMap;
  *
  * @author Roman
  */
-public class JSON {
-
+public class JsonConverter {
+    
+    
     public String toJson(List<Password> passwords)  {
         String output = "[";
         for (Password password : passwords) {
