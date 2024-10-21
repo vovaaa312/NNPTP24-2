@@ -20,6 +20,10 @@ public class Parameter {
         public static final String DESCRIPTION = "description";
         
     }
+
+    public String toJson() {
+        return "{}";
+    }
     
     // TODO: add support for validation rules
     
@@ -39,6 +43,11 @@ public class Parameter {
 
         public void setValue(String value) {
             this.value = value;
+        }
+
+        @Override
+        public String toJson() {
+            return "\"" + value + "\"";
         }
         
     }
@@ -60,8 +69,11 @@ public class Parameter {
         public void setValue(LocalDateTime value) {
             this.value = value;
         }
-        
-        
+
+        @Override
+        public String toJson() {
+            return "\"" + (value != null ? value.toString() : "null") + "\"";
+        }
     }
     
     public static class PasswordParameter extends Parameter {
@@ -81,7 +93,10 @@ public class Parameter {
         public void setPassword(String password) {
             this.password = password;
         }
-        
-        
+
+        @Override
+        public String toJson() {
+            return "\"" + password + "\"";
+        }
     }
 }
