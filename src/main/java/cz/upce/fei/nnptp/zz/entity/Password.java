@@ -8,50 +8,22 @@ package cz.upce.fei.nnptp.zz.entity;
 import java.util.HashMap;
 
 /**
- *
  * @author Roman
  */
-public class Password {
+public record Password(int id, String password, HashMap<String, Parameter> parameters) {
 
-    private int id;
-    private String password;
-    //private HashMap<ParameterType, Parameter> parameters;
-    private HashMap<String, Parameter> parameters;
-
-    public Password() {
-    }
 
     public Password(int id, String password) {
-        this.id = id;
-        this.password = password;
-    }
-
-    public Password(int id, String password, HashMap<String, Parameter> parameters) {
-        this.id = id;
-        this.password = password;
-        this.parameters = parameters;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public HashMap<String, Parameter> getParameters() {
-        return parameters;
+        this(id, password, new HashMap<>());
     }
 
     boolean hasParameter(String title) {
         return parameters.containsKey(title);
     }
-    
+
     public Parameter getParameter(String title) {
         return parameters.get(title);
     }
-    
-    
+
 
 }
