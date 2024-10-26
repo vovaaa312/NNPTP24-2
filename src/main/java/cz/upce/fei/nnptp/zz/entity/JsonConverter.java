@@ -20,9 +20,9 @@ public class JsonConverter {
             if (!output.isEmpty() && !output.equals("["))
                 output += ",";
             output += "{";
-            output += "\"id\":" + password.getId() + ",";
-            output += "\"password\":\"" + password.getPassword()+"\"";
-            HashMap<String, Parameter> parameters = password.getParameters();
+            output += "\"id\":" + password.id() + ",";
+            output += "\"password\":\"" + password.password()+"\"";
+            HashMap<String, Parameter> parameters = password.parameters();
             if (parameters != null && !parameters.isEmpty()) {
                 output += ",\"parameters\":{";
                 for (String key : parameters.keySet()) {
