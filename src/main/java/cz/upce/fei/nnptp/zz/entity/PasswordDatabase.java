@@ -32,7 +32,7 @@ public class PasswordDatabase {
     }
     
     public void save() {
-        String contents = new JSON().toJson(passwords);
+        String contents = new JsonConverter().toJson(passwords);
         CryptoFile.writeFile(file, password, contents);
     }
     
