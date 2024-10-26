@@ -49,10 +49,9 @@ public class JsonConverter {
 
         while (i < json.length()) {
             if (json.charAt(i) == '{') {
-                // Create a new Password object
                 Password password = parsePassword(json, i);
                 passwords.add(password);
-                // Move index past the '}'
+                // Move index past '}'
                 while (i < json.length() && json.charAt(i) != '}') {
                     i++;
                 }
@@ -79,14 +78,14 @@ public class JsonConverter {
                 case "id":
                     int idEnd = json.indexOf(",", i);
                     id = Integer.parseInt(json.substring(i, idEnd).trim());
-                    i = idEnd + 1; // Move past the id value and ','
+                    i = idEnd + 1; // Move past id value and ','
                     break;
 
                 case "password":
                     int passwordStart = json.indexOf("\"", i) + 1;
                     int passwordEnd = json.indexOf("\"", passwordStart);
                     passwordValue = json.substring(passwordStart, passwordEnd);
-                    i = passwordEnd + 1; // Move past the password value and ','
+                    i = passwordEnd + 1; // Move past password value and ','
                     break;
 
                 case "parameters":
@@ -124,7 +123,7 @@ public class JsonConverter {
                 parameters.put(paramKey, new Parameter.TextParameter(paramValue));
             }
 
-            i = paramValueEnd + 1; // Move past value and ','
+            i = paramValueEnd + 1; // Move past parameters value and ','
 
             if (i < json.length() && json.charAt(i) == ',') i++;
         }
