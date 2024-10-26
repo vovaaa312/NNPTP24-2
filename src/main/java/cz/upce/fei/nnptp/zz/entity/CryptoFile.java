@@ -31,15 +31,19 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class CryptoFile {
     
+    private static Cipher initializeCipher(String password, int mode) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+        Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+        SecretKey secretKey = new SecretKeySpec(password.getBytes(), "DES");
+        cipher.init(mode, secretKey);
+        return cipher;
+    }
+    
     public static String readFile(File file, String password) {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);
-            // TODO...
-            Cipher c = Cipher.getInstance("DES/ECB/PKCS5Padding");
+            Cipher c = initializeCipher(password, Cipher.DECRYPT_MODE);
             CipherInputStream cis = new CipherInputStream(fis, c);
-            SecretKey secretKey = new SecretKeySpec(password.getBytes(), "DES");
-            c.init(Cipher.DECRYPT_MODE, secretKey);
             
             DataInputStream dis = new DataInputStream(cis);
             String r = dis.readUTF();
@@ -65,11 +69,9 @@ public class CryptoFile {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
-            Cipher c = Cipher.getInstance("DES/ECB/PKCS5Padding");
+            Cipher c = initializeCipher(password, Cipher.ENCRYPT_MODE);
             CipherOutputStream cis = new CipherOutputStream(fos, c);
-            SecretKey secretKey = new SecretKeySpec(password.getBytes(), "DES");
-            c.init(Cipher.ENCRYPT_MODE, secretKey);
-            
+
             DataOutputStream dos = new DataOutputStream(cis);
             dos.writeUTF(cnt);
             dos.close();
