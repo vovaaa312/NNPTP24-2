@@ -17,7 +17,7 @@ public record Password(int id, String password, HashMap<String, Parameter> param
         this(id, password, new HashMap<>());
     }
 
-    boolean hasParameter(String title) {
+    public boolean hasParameter(String title) {
         return parameters.containsKey(title);
     }
 
