@@ -76,7 +76,7 @@ class JSONTest {
         List<Password> result = json.fromJson(input);
 
         Password expectedPassword = new Password(1, "password123");
-        Password actualPassword = result.getFirst();
+        Password actualPassword = result.get(0);
 
         assertEquals(1, result.size());
         assertEquals(expectedPassword.password(), actualPassword.password());
@@ -96,7 +96,7 @@ class JSONTest {
         params.put(Parameter.StandardizedParameters.EXPIRATION_DATETIME, new Parameter.DateTimeParameter(expectedDateTime));
 
         Password expectedPassword = new Password(1, "password123", params);
-        Password actualPassword = result.getFirst();
+        Password actualPassword = result.get(0);
 
         assertEquals(1, result.size());
         assertEquals(expectedPassword.password(), actualPassword.password());
