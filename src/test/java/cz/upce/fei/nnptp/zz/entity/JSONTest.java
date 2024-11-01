@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JSONTest {
+public class JSONTest {
 
     @Test
     public void testToJsonEmptyPasswordList() {
