@@ -6,8 +6,6 @@
 package cz.upce.fei.nnptp.zz.entity;
 
 import java.io.File;
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,11 +30,11 @@ public class PasswordDatabase {
         return passwords;
     }
     
-    public void load() throws IOException, GeneralSecurityException {
+    public void load() throws PasswordDatabaseException {
         String encryptedJson = CryptoFile.readFile(file, password);
         
         if (encryptedJson == null || encryptedJson.isEmpty()) {
-            throw new IOException("Failed to load data: file content is empty or cannot be decrypted.");
+            throw new PasswordDatabaseException("Failed to load data: file content is empty or cannot be decrypted.");
         }
         
         passwords = new JsonConverter().fromJson(encryptedJson);

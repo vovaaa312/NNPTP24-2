@@ -85,4 +85,16 @@ class PasswordDatabaseTest {
         assertEquals("pwd1", passwordDatabase.getPasswords().get(0).password(), "First password does not match expected value");
         assertEquals("pwd2", passwordDatabase.getPasswords().get(1).password(), "Second password does not match expected value");
     }
+
+    @Test
+    void testLoadEmptyFile() {
+        File testFile = new File(temporaryDirectory, "testLoadEmpty.txt");
+
+        CryptoFile.writeFile(testFile, "password", "");
+
+        PasswordDatabase passwordDatabase = new PasswordDatabase(testFile, "password");
+
+        PasswordDatabaseException exception = assertThrows(PasswordDatabaseException.class, passwordDatabase::load);
+        assertEquals("Failed to load data: file content is empty or cannot be decrypted.", exception.getMessage(), "Exception message does not match");
+    }
 }
