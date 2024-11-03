@@ -25,10 +25,19 @@ public class PasswordDatabase {
 
         this.passwords = new LinkedList<>();
     }
+
+    public List<Password> getPasswords() {
+        return passwords;
+    }
     
-    public void load() {
-        // TODO: use JSON and CryptoFile to load
-        // TODO: throw exceptions when error
+    public void load() throws PasswordDatabaseException {
+        String encryptedJson = CryptoFile.readFile(file, password);
+        
+        if (encryptedJson == null || encryptedJson.isEmpty()) {
+            throw new PasswordDatabaseException("Failed to load data: file content is empty or cannot be decrypted.");
+        }
+        
+        passwords = new JsonConverter().fromJson(encryptedJson);
     }
     
     public void save() {
