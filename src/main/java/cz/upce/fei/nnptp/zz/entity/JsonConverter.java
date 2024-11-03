@@ -15,7 +15,6 @@ import java.util.HashMap;
  */
 public class JsonConverter {
 
-
     public String toJson(List<Password> passwords) {
         StringBuilder output = new StringBuilder("[");
         for (int i = 0; i < passwords.size(); i++) {
@@ -23,16 +22,16 @@ public class JsonConverter {
 
             Password password = passwords.get(i);
             output.append("{")
-                    .append("\"id\":").append(password.id()).append(",")
-                    .append("\"password\":\"").append(password.password()).append("\"");
+                    .append("id:").append(password.id()).append(",")
+                    .append("password:\"").append(password.password()).append("\"");
 
             HashMap<String, Parameter> parameters = password.parameters();
             if (parameters != null && !parameters.isEmpty()) {
-                output.append(",\"parameters\":{");
+                output.append(",parameters:{");
                 int count = 0;
                 for (String key : parameters.keySet()) {
                     if (count > 0) output.append(",");
-                    output.append("\"").append(key).append("\":").append(parameters.get(key).toJson());
+                    output.append(key).append(":").append(parameters.get(key).toJson());
                     count++;
                 }
                 output.append("}");
