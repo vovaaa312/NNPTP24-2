@@ -16,7 +16,7 @@ import java.util.List;
  * 
  * 
  */
-public class main {
+public class Main {
     public static void main(String[] args) {
         // This is only temporary demo for existing API
         // main should not be primarily updated
