@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CryptoFileTest {
 
-    private static File file;
+    private File file;
     
     public CryptoFileTest() {
     }
@@ -67,6 +67,8 @@ public class CryptoFileTest {
         String cnt = "content";
         CryptoFile.writeFile(file, password, cnt);
         assertTrue(file.length() > 0);
+        String decryptedContent = CryptoFile.readFile(file, password);
+        assertEquals(cnt, decryptedContent);
     }
     
 }
