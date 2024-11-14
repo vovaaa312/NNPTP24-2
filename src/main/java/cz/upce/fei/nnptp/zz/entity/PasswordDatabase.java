@@ -55,7 +55,7 @@ public class PasswordDatabase {
             if (password.hasParameter(Parameter.StandardizedParameters.TITLE)) {
                 Parameter.TextParameter titleParam;
                 titleParam = (Parameter.TextParameter)password.getParameter(Parameter.StandardizedParameters.TITLE);
-                if (titleParam.getValue().equals(titleParam)) {
+                if (titleParam.getValue().equals(title)) {
                     return password;
                 }
             }
