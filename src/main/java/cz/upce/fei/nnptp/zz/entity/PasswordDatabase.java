@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.upce.fei.nnptp.zz.entity;
 
 import java.io.File;
@@ -55,7 +50,7 @@ public class PasswordDatabase {
             if (password.hasParameter(Parameter.StandardizedParameters.TITLE)) {
                 Parameter.TextParameter titleParam;
                 titleParam = (Parameter.TextParameter)password.getParameter(Parameter.StandardizedParameters.TITLE);
-                if (titleParam.getValue().equals(titleParam)) {
+                if (titleParam.getValue().equals(title)) {
                     return password;
                 }
             }
