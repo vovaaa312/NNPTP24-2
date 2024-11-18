@@ -6,6 +6,8 @@
 package cz.upce.fei.nnptp.zz.entity;
 
 import java.io.File;
+import java.io.IOException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class CryptoFileTest {
 
-    private File file;
     
     public CryptoFileTest() {
     }
@@ -33,14 +34,10 @@ public class CryptoFileTest {
     
     @BeforeEach
     public void setUp() {
-        file = new File("file.enc");
     }
     
     @AfterEach
     public void tearDown() {
-        if (file.exists()) {
-            file.delete();
-        }
     }
 
     /**
@@ -61,7 +58,8 @@ public class CryptoFileTest {
      * Test of writeFile method, of class CryptoFile.
      */
     @Test
-    public void testWriteFile() {
+    public void testWriteFile() throws IOException {
+        File file = File.createTempFile("testFile",".enc");
         System.out.println("writeFile");
         String password = "password";
         String cnt = "content";
