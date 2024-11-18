@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.upce.fei.nnptp.zz.entity;
 
 import java.time.LocalDateTime;
@@ -15,6 +10,10 @@ import java.util.HashMap;
  */
 public class JsonConverter {
 
+    private static final String KEY_ID = "id";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_PARAMETERS = "parameters";
+
     public String toJson(List<Password> passwords) {
         StringBuilder output = new StringBuilder("[");
         for (int i = 0; i < passwords.size(); i++) {
@@ -22,12 +21,12 @@ public class JsonConverter {
 
             Password password = passwords.get(i);
             output.append("{")
-                    .append("id:").append(password.id()).append(",")
-                    .append("password:\"").append(password.password()).append("\"");
+                    .append(KEY_ID).append(":").append(password.id()).append(",")
+                    .append(KEY_PASSWORD).append(":\"").append(password.password()).append("\"");
 
             HashMap<String, Parameter> parameters = password.parameters();
             if (parameters != null && !parameters.isEmpty()) {
-                output.append(",parameters:{");
+                output.append(",").append(KEY_PARAMETERS).append(":{");
                 int count = 0;
                 for (String key : parameters.keySet()) {
                     if (count > 0) output.append(",");
@@ -77,20 +76,20 @@ public class JsonConverter {
             i = keyEnd + 2; // Move past key and ':'
 
             switch (key) {
-                case "id":
+                case KEY_ID:
                     int idEnd = json.indexOf(",", i);
                     id = Integer.parseInt(json.substring(i, idEnd).trim());
                     i = idEnd + 1; // Move past id value and ','
                     break;
 
-                case "password":
+                case KEY_PASSWORD:
                     int passwordStart = json.indexOf("\"", i) + 1;
                     int passwordEnd = json.indexOf("\"", passwordStart);
                     passwordValue = json.substring(passwordStart, passwordEnd);
                     i = passwordEnd + 1; // Move past password value and ','
                     break;
 
-                case "parameters":
+                case KEY_PARAMETERS:
                     i++; // Move past '{'
                     parameters = parseParameters(json, i);
                     // Move i to '}'
