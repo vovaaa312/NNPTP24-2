@@ -36,15 +36,15 @@ public class CryptoFile {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);
-            Cipher c = initializeCipher(password, Cipher.DECRYPT_MODE);
-            CipherInputStream cis = new CipherInputStream(fis, c);
+            Cipher cipher = initializeCipher(password, Cipher.DECRYPT_MODE);
+            CipherInputStream cis = new CipherInputStream(fis, cipher);
             
             DataInputStream dis = new DataInputStream(cis);
-            String r = dis.readUTF();
+            String fileContent = dis.readUTF();
             dis.close();
-            c.doFinal();
+            cipher.doFinal();
             
-            return r;        
+            return fileContent;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | IOException | InvalidKeyException |
                  IllegalBlockSizeException | BadPaddingException ex) {
             Logger.getLogger(CryptoFile.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,17 +59,17 @@ public class CryptoFile {
         return null;
     }
     
-    public static void writeFile(File file, String password, String cnt) {
+    public static void writeFile(File file, String password, String content) {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(file);
-            Cipher c = initializeCipher(password, Cipher.ENCRYPT_MODE);
-            CipherOutputStream cis = new CipherOutputStream(fos, c);
+            Cipher cipher = initializeCipher(password, Cipher.ENCRYPT_MODE);
+            CipherOutputStream cis = new CipherOutputStream(fos, cipher);
 
             DataOutputStream dos = new DataOutputStream(cis);
-            dos.writeUTF(cnt);
+            dos.writeUTF(content);
             dos.close();
-            c.doFinal();
+            cipher.doFinal();
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IOException |
                  IllegalBlockSizeException | BadPaddingException ex) {
             Logger.getLogger(CryptoFile.class.getName()).log(Level.SEVERE, null, ex);
