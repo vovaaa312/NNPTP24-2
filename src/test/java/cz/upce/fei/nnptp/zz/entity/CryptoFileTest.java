@@ -1,6 +1,8 @@
 package cz.upce.fei.nnptp.zz.entity;
 
 import java.io.File;
+import java.io.IOException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Roman
  */
 public class CryptoFileTest {
+
     
     public CryptoFileTest() {
     }
@@ -50,13 +53,15 @@ public class CryptoFileTest {
      * Test of writeFile method, of class CryptoFile.
      */
     @Test
-    public void testWriteFile() {
+    public void testWriteFile() throws IOException {
+        File file = File.createTempFile("testFile",".enc");
         System.out.println("writeFile");
-        File file = null;
-        String password = "";
-        String cnt = "";
-        //CryptoFile.writeFile(file, password, cnt);
-        // TODO review the generated test code and remove the default call to fail.
+        String password = "password";
+        String cnt = "content";
+        CryptoFile.writeFile(file, password, cnt);
+        assertTrue(file.length() > 0);
+        String decryptedContent = CryptoFile.readFile(file, password);
+        assertEquals(cnt, decryptedContent);
     }
     
 }
