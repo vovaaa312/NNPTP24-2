@@ -21,16 +21,16 @@ public class JsonConverter {
 
             Password password = passwords.get(i);
             output.append("{")
-                    .append(KEY_ID).append(":").append(password.id()).append(",")
-                    .append(KEY_PASSWORD).append(":\"").append(password.password()).append("\"");
+                    .append("\"").append(KEY_ID).append("\":").append(password.id()).append(",")
+                    .append("\"").append(KEY_PASSWORD).append("\":\"").append(password.password()).append("\"");
 
             HashMap<String, Parameter> parameters = password.parameters();
             if (parameters != null && !parameters.isEmpty()) {
-                output.append(",").append(KEY_PARAMETERS).append(":{");
+                output.append(",\"").append(KEY_PARAMETERS).append("\":{");
                 int count = 0;
                 for (String key : parameters.keySet()) {
                     if (count > 0) output.append(",");
-                    output.append(key).append(":").append(parameters.get(key).toJson());
+                    output.append("\"").append(key).append("\":").append(parameters.get(key).toJson());
                     count++;
                 }
                 output.append("}");
