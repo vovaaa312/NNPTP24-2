@@ -47,12 +47,16 @@ public class PasswordDatabase {
     public Password findEntryByTitle(String title) {
         for (Password password : passwords) {
 
-            if (!password.hasParameter(Parameter.StandardizedParameters.TITLE)) continue;
+            if (!password.hasParameter(Parameter.StandardizedParameters.TITLE)){
+                continue;
+            }
 
-            Parameter.TextParameter titleParam;
-            titleParam = (Parameter.TextParameter)password.getParameter(Parameter.StandardizedParameters.TITLE);
+            Parameter.TextParameter titleParam = (Parameter.TextParameter)password.getParameter(Parameter.StandardizedParameters.TITLE);
 
-            if (titleParam.getValue().equals(title)) return password;
+            if (titleParam.getValue().equals(title)){
+                return password;
+            }
+
         }
         return null;
     }
