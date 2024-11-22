@@ -41,7 +41,7 @@ public class JsonConverter {
 
         return output.toString();
     }
-
+    
     public List<Password> fromJson(String json) {
         if (json == null || json.isEmpty()) return new ArrayList<>();
 
@@ -52,15 +52,18 @@ public class JsonConverter {
             if (json.charAt(i) == '{') {
                 Password password = parsePassword(json, i);
                 passwords.add(password);
-                // Move index past '}'
-                while (i < json.length() && json.charAt(i) != '}') {
-                    i++;
-                }
+                i = skipToClosingBrace(json, i);
             }
             i++; // Move past '}'
         }
 
         return passwords;
+    }
+    
+    private int skipToClosingBrace(String json, int startIndex) {
+        int i = startIndex;
+        while (i < json.length() && json.charAt(i) != '}') i++;
+        return i + 1; // Move past '}'
     }
 
     private Password parsePassword(String json, int startIndex) {
@@ -90,13 +93,8 @@ public class JsonConverter {
                     break;
 
                 case KEY_PARAMETERS:
-                    i++; // Move past '{'
-                    parameters = parseParameters(json, i);
-                    // Move i to '}'
-                    while (i < json.length() && json.charAt(i) != '}') {
-                        i++;
-                    }
-                    i++; // Move past '}'
+                    parameters = parseParameters(json, i + 1);
+                    i = skipToClosingBrace(json, i);
                     break;
             }
             if (i < json.length() && json.charAt(i) == ',') i++;
