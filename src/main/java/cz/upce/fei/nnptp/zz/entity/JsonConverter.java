@@ -13,33 +13,45 @@ public class JsonConverter {
     private static final String KEY_ID = "id";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_PARAMETERS = "parameters";
-
+    
     public String toJson(List<Password> passwords) {
         StringBuilder output = new StringBuilder("[");
         for (int i = 0; i < passwords.size(); i++) {
             if (i > 0) output.append(",");
 
             Password password = passwords.get(i);
-            output.append("{")
-                    .append("\"").append(KEY_ID).append("\":").append(password.id()).append(",")
-                    .append("\"").append(KEY_PASSWORD).append("\":\"").append(password.password()).append("\"");
-
-            HashMap<String, Parameter> parameters = password.parameters();
-            if (parameters != null && !parameters.isEmpty()) {
-                output.append(",\"").append(KEY_PARAMETERS).append("\":{");
-                int count = 0;
-                for (String key : parameters.keySet()) {
-                    if (count > 0) output.append(",");
-                    output.append("\"").append(key).append("\":").append(parameters.get(key).toJson());
-                    count++;
-                }
-                output.append("}");
-            }
-            output.append("}");
+            output.append(buildPasswordJson(password));
         }
         output.append("]");
 
         return output.toString();
+    }
+    
+    private String buildPasswordJson(Password password) {
+        StringBuilder passwordJson = new StringBuilder();
+        passwordJson.append("{")
+                    .append("\"").append(KEY_ID).append("\":").append(password.id()).append(",")
+                    .append("\"").append(KEY_PASSWORD).append("\":\"").append(password.password()).append("\"");
+
+        HashMap<String, Parameter> parameters = password.parameters();
+        if (parameters != null && !parameters.isEmpty()) {
+            passwordJson.append(",\"").append(KEY_PARAMETERS).append("\":").append(buildParametersJson(parameters));
+        }
+        passwordJson.append("}");
+
+        return passwordJson.toString();
+    }
+    
+    private String buildParametersJson(HashMap<String, Parameter> parameters) {
+        StringBuilder parametersJson = new StringBuilder("{");
+        int count = 0;
+        for (String key : parameters.keySet()) {
+            if (count > 0) parametersJson.append(",");
+            parametersJson.append("\"").append(key).append("\":").append(parameters.get(key).toJson());
+            count++;
+        }
+        parametersJson.append("}");
+        return parametersJson.toString();
     }
     
     public List<Password> fromJson(String json) {
