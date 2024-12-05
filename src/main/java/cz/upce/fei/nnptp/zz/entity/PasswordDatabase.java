@@ -3,7 +3,6 @@ package cz.upce.fei.nnptp.zz.entity;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -47,7 +46,6 @@ public class PasswordDatabase {
     
     public Password findEntryByTitle(String title) {
         return passwords.stream()
-                .filter(Objects::nonNull)
                 .filter(password -> password.hasParameter(Parameter.StandardizedParameters.TITLE))
                 .filter(password -> {
                     Parameter.TextParameter titleParam =
