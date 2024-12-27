@@ -93,6 +93,32 @@ public class PasswordTest {
     }
 
     @Test
+    public void testAddParameter() {
+        Password password = new Password(1, "testPass");
+        TextParameter newParam = new TextParameter("newValue");
+
+        password.addParameter("newKey", newParam);
+
+        assertTrue(password.hasParameter("newKey"), "Newly added parameter 'newKey' should exist");
+        assertEquals("newValue", ((TextParameter) password.getParameter("newKey")).getValue(), "Newly added parameter 'newKey' should return 'newValue'");
+    }
+
+    @Test
+    public void testOverrideParameter() {
+        HashMap<String, Parameter> parameters = new HashMap<>();
+        TextParameter initialParam = new TextParameter("initialValue");
+        parameters.put("key", initialParam);
+
+        Password password = new Password(1, "testPass", parameters);
+        TextParameter overriddenParam = new TextParameter("overriddenValue");
+
+        password.addParameter("key", overriddenParam);
+
+        assertTrue(password.hasParameter("key"), "Parameter 'key' should still exist after override");
+        assertEquals("overriddenValue", ((TextParameter) password.getParameter("key")).getValue(), "Parameter 'key' should return the overridden value");
+    }
+
+    @Test
     public void testGetMultipleParametersValue() {
         HashMap<String, Parameter> parameters = new HashMap<>();
 
