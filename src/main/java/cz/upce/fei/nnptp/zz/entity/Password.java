@@ -1,7 +1,6 @@
 package cz.upce.fei.nnptp.zz.entity;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 /**
  * @author Roman
