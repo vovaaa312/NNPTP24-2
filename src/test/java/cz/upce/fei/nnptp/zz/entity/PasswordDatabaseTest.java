@@ -132,4 +132,23 @@ class PasswordDatabaseTest {
 
         assertNull(result, "Password should not be found for a non-existent title");
     }
+
+    @Test
+    void testAddAndRetrievePasswords() {
+        File testFile = new File(temporaryDirectory, "testAddAndRetrieve.txt");
+
+        PasswordDatabase passwordDatabase = new PasswordDatabase(testFile, "password");
+
+        Password password1 = new Password(0, "firstPassword");
+        Password password2 = new Password(1, "secondPassword");
+        passwordDatabase.add(password1);
+        passwordDatabase.add(password2);
+
+        List<Password> passwords = passwordDatabase.getPasswords();
+        assertEquals(2, passwords.size(), "The size of the passwords list should be 2");
+
+        assertTrue(passwords.contains(password1), "The list should contain the first password");
+        assertTrue(passwords.contains(password2), "The list should contain the second password");
+    }
+
 }
