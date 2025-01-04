@@ -36,11 +36,6 @@ public class PasswordDatabase {
     }
     
     public void save() {
-        for (Password p : passwords) {
-            for (Parameter param : p.parameters().values()) {
-                param.validate();
-            }
-        }
         String contents = new JsonConverter().toJson(passwords);
         CryptoFile.writeFile(file, password, contents);
     }

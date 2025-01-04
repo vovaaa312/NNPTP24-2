@@ -21,7 +21,6 @@ public record Password(int id, String password, HashMap<String, Parameter> param
     }
 
     public void addParameter(String title, Parameter parameter) {
-        parameter.validate();
         parameters.put(title, parameter);
     }
 
