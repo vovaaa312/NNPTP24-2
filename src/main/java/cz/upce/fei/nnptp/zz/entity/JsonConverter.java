@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
+
 /**
- *
  * @author Roman
  */
 public class JsonConverter {
@@ -13,7 +13,7 @@ public class JsonConverter {
     private static final String KEY_ID = "id";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_PARAMETERS = "parameters";
-    
+
     public String toJson(List<Password> passwords) {
         StringBuilder output = new StringBuilder("[");
         for (int i = 0; i < passwords.size(); i++) {
@@ -26,12 +26,12 @@ public class JsonConverter {
 
         return output.toString();
     }
-    
+
     private String buildPasswordJson(Password password) {
         StringBuilder passwordJson = new StringBuilder();
         passwordJson.append("{")
-                    .append("\"").append(KEY_ID).append("\":").append(password.id()).append(",")
-                    .append("\"").append(KEY_PASSWORD).append("\":\"").append(password.password()).append("\"");
+                .append("\"").append(KEY_ID).append("\":").append(password.id()).append(",")
+                .append("\"").append(KEY_PASSWORD).append("\":\"").append(password.password()).append("\"");
 
         HashMap<String, Parameter> parameters = password.parameters();
         if (parameters != null && !parameters.isEmpty()) {
@@ -41,7 +41,7 @@ public class JsonConverter {
 
         return passwordJson.toString();
     }
-    
+
     private String buildParametersJson(HashMap<String, Parameter> parameters) {
         StringBuilder parametersJson = new StringBuilder("{");
         int count = 0;
@@ -53,7 +53,7 @@ public class JsonConverter {
         parametersJson.append("}");
         return parametersJson.toString();
     }
-    
+
     public List<Password> fromJson(String json) {
         if (json == null || json.isEmpty()) return new ArrayList<>();
 
@@ -71,7 +71,7 @@ public class JsonConverter {
 
         return passwords;
     }
-    
+
     private int skipToClosingBrace(String json, int startIndex) {
         int i = startIndex;
         while (i < json.length() && json.charAt(i) != '}') i++;
@@ -129,9 +129,13 @@ public class JsonConverter {
             String paramValue = json.substring(paramValueStart, paramValueEnd);
 
             if (paramKey.equals(Parameter.StandardizedParameters.EXPIRATION_DATETIME)) {
-                parameters.put(paramKey, new Parameter.DateTimeParameter(LocalDateTime.parse(paramValue)));
+                Parameter.DateTimeParameter dateParam = new Parameter.DateTimeParameter(LocalDateTime.parse(paramValue));
+                dateParam.validate();
+                parameters.put(paramKey, dateParam);
             } else {
-                parameters.put(paramKey, new Parameter.TextParameter(paramValue));
+                Parameter.TextParameter textParam = new Parameter.TextParameter(paramValue);
+                textParam.validate();
+                parameters.put(paramKey, textParam);
             }
 
             i = paramValueEnd + 1; // Move past parameters value and ','
