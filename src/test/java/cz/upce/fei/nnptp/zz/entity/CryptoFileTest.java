@@ -18,23 +18,6 @@ public class CryptoFileTest {
     
     public CryptoFileTest() {
     }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
-
     /**
      * Test of readFile method, of class CryptoFile.
      *
