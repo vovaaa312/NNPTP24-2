@@ -27,13 +27,17 @@ public class PasswordDatabase {
     
     public void load() throws PasswordDatabaseException {
         String encryptedJson = CryptoFile.readFile(file, password);
-        
-        if (encryptedJson == null || encryptedJson.isEmpty()) {
+
+        if (isInvalidEncryptedData(encryptedJson)) {
             throw new PasswordDatabaseException("Failed to load data: file content is empty or cannot be decrypted.");
         }
         
         passwords = new JsonConverter().fromJson(encryptedJson);
     }
+    private boolean isInvalidEncryptedData(String encryptedJson) {
+        return encryptedJson == null || encryptedJson.isEmpty();
+    }
+
     
     public void save() {
         for (Password p : passwords) {
