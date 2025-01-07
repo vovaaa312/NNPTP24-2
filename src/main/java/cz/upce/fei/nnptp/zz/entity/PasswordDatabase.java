@@ -22,7 +22,7 @@ public class PasswordDatabase {
     }
 
     public List<Password> getPasswords() {
-        return passwords;
+        return new LinkedList<>(passwords);
     }
     
     public void load() throws PasswordDatabaseException {
